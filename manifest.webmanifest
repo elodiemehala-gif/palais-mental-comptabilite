@@ -1,0 +1,12 @@
+{
+  "name": "Palais mental — Comptabilité",
+  "short_name": "Palais mental",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#130b24",
+  "theme_color": "#20113a",
+  "lang": "fr-FR",
+  "icons": [
+    {"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
