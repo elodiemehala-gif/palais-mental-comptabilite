@@ -4,15 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#20113a" />
-  <meta name="description" content="Palais mental interactif pour mémoriser 300 notions de comptabilité et d'analyse financière." />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="./styles.css" />
-  <title>Palais mental — Comptabilité</title>
+  <meta name="description" content="Palais mental spatial interactif pour mémoriser 300 notions de comptabilité et d'analyse financière." />
+  <link rel="manifest" href="./manifest.webmanifest?v=3" />
+  <link rel="icon" href="./assets/icon.svg?v=3" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css?v=3.1" />
+  <title>Palais mental V3 — Comptabilité</title>
+  <script>
+    // Migration V3 : supprimer définitivement les anciens caches qui servaient l'ancienne galerie.
+    (async()=>{
+      try{
+        if('serviceWorker' in navigator){
+          const regs=await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r=>r.unregister()));
+        }
+        if('caches' in window){
+          const keys=await caches.keys();
+          await Promise.all(keys.map(k=>caches.delete(k)));
+        }
+      }catch(e){ console.warn('Nettoyage cache V3',e); }
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>
   <div id="toast" class="toast" aria-live="polite"></div>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=3.1"></script>
 </body>
 </html>
