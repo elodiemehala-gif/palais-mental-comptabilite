@@ -1,12 +1,29 @@
 {
+  "id": "./v5.html",
   "name": "Palais mental — Comptabilité",
   "short_name": "Palais mental",
-  "start_url": "./",
+  "description": "Palais mental interactif pour mémoriser 300 notions de comptabilité et d'analyse financière.",
+  "start_url": "./v5.html?source=pwa",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
   "background_color": "#130b24",
   "theme_color": "#20113a",
   "lang": "fr-FR",
+  "categories": ["education", "productivity"],
   "icons": [
-    {"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
   ]
 }
