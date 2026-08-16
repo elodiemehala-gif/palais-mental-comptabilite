@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#20113a" />
+  <meta name="description" content="Palais mental V4 : carte spatiale et validation mot + définition pour chaque objet-locus." />
+  <link rel="stylesheet" href="./styles.css?v=4" />
+  <link rel="stylesheet" href="./house-quiz.css?v=2" />
+  <title>Palais mental V4 — Validation des loci</title>
+  <script>
+    (async()=>{
+      try{
+        if('serviceWorker' in navigator){
+          const regs=await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r=>r.unregister()));
+        }
+        if('caches' in window){
+          const keys=await caches.keys();
+          await Promise.all(keys.map(k=>caches.delete(k)));
+        }
+      }catch(e){console.warn(e)}
+    })();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script type="module" src="./app.js?v=4"></script>
+  <script type="module" src="./house-quiz.js?v=2"></script>
+</body>
+</html>
