@@ -7,10 +7,10 @@
   <meta name="description" content="Palais mental spatial interactif pour mémoriser 300 notions de comptabilité et d'analyse financière." />
   <link rel="manifest" href="./manifest.webmanifest?v=3" />
   <link rel="icon" href="./assets/icon.svg?v=3" type="image/svg+xml" />
-  <link rel="stylesheet" href="./styles.css?v=3.1" />
+  <link rel="stylesheet" href="./styles.css?v=3.2" />
+  <link rel="stylesheet" href="./house-quiz.css?v=1" />
   <title>Palais mental V3 — Comptabilité</title>
   <script>
-    // Migration V3 : supprimer définitivement les anciens caches qui servaient l'ancienne galerie.
     (async()=>{
       try{
         if('serviceWorker' in navigator){
@@ -28,6 +28,7 @@
 <body>
   <div id="app"></div>
   <div id="toast" class="toast" aria-live="polite"></div>
-  <script type="module" src="./app.js?v=3.1"></script>
+  <script type="module" src="./app.js?v=3.2"></script>
+  <script type="module" src="./house-quiz.js?v=1"></script>
 </body>
 </html>
