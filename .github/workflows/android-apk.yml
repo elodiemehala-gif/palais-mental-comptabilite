@@ -1,0 +1,70 @@
+name: Build APK Android hors ligne
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'android-app/**'
+      - 'native.html'
+      - 'native-bridge.js'
+      - 'app.js'
+      - 'styles.css'
+      - 'house-quiz.js'
+      - 'house-quiz.css'
+      - 'data/**'
+      - 'assets/**'
+      - 'images/**'
+      - 'mnemonics/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le projet
+        uses: actions/checkout@v4
+
+      - name: Installer Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Installer Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Installer Gradle 8.10.2
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Compiler l’APK autonome
+        run: gradle -p android-app assembleDebug --no-daemon --stacktrace
+
+      - name: Préparer le fichier à télécharger
+        run: |
+          mkdir -p dist
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk dist/Palais-mental-offline.apk
+
+      - name: Conserver l’APK comme artefact GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: Palais-mental-offline
+          path: dist/Palais-mental-offline.apk
+          if-no-files-found: error
+
+      - name: Publier l’APK dans une release permanente
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view android-offline >/dev/null 2>&1; then
+            gh release upload android-offline dist/Palais-mental-offline.apk --clobber
+          else
+            gh release create android-offline dist/Palais-mental-offline.apk \
+              --target main \
+              --title "Palais mental — Android hors ligne" \
+              --notes "Application Android autonome. Toutes les données du palais sont embarquées dans l’APK. Aucune permission Internet n’est demandée."
+          fi
