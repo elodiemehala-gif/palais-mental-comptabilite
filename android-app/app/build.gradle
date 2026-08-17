@@ -1,0 +1,50 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'fr.palaismental.comptabilite'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'fr.palaismental.comptabilite'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildFeatures {
+        buildConfig false
+    }
+
+    sourceSets {
+        main.assets.srcDirs += "$buildDir/generated/offlineAssets"
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.12.1'
+}
+
+def repoRoot = rootProject.projectDir.parentFile
+
+tasks.register('prepareOfflineAssets', Copy) {
+    into "$buildDir/generated/offlineAssets/www"
+    from(repoRoot) {
+        include 'native.html'
+        include 'app.js'
+        include 'styles.css'
+        include 'house-quiz.js'
+        include 'house-quiz.css'
+        include 'native-bridge.js'
+        include 'data/**'
+        include 'assets/**'
+        include 'images/**'
+        include 'mnemonics/**'
+    }
+}
+
+tasks.named('preBuild').configure {
+    dependsOn tasks.named('prepareOfflineAssets')
+}
